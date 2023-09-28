@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="./assets/css/style.css" />
@@ -26,14 +27,15 @@
 
       <div class="search-box">
         <h3 class="card-header text-uppercase">Search By Artist!</h3>
-        <form id="user-form" class="card-body">
-          <label class="form-label">Artist</label>
-          <input type="text" autofocus="true"/>
-          <button type="submit" class="btn">Find New Music</button>
-        </form>
+            <form id="user-form" class="card-body">
+                <label class="form-label">Artist</label>
+                <input type="text" autofocus="true"/>
+                <button type="submit" class="btn">Find New Music</button>
+            </form>
+      <datalist id ="artists"></datalist>
       </div>
   </main>
-
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="./assets/js/mainpage.js"></script>
 </body>
 
