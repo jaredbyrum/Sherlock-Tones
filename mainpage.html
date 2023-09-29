@@ -9,32 +9,33 @@
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Sherlock TONES</title>
+  <title >Sherlock TONES</title>
 </head>
 
 <body>
-  <header>
-    <h1>
-      <i</i> Sherlock TONES
+  <header class ="bg-slate-950 h-14 bg-gradient-to-b from-violet-950 box-border h-48">
+    <h1 class="text-8xl font-bold underline text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-5xl font-extrabold font-mono pt-10">Sherlock TONES 
     </h1>
-    <p>Search by Artist to find your new favorite band!
+    <p class = "flex justify-center items-center text-green-500">Search by Artist to find your new favorite band!
     </p>
   </header>
 
-
-  <main class="flex-row justify-space-between">
-    <div class="col-12 col-md-4">
-
-      <div class="search-box">
-        <h3 class="card-header text-uppercase">Search By Artist!</h3>
-            <form id="user-form" class="card-body">
-                <label class="form-label">Artist</label>
-                <input type="text" autofocus="true"/>
-                <button type="submit" class="btn">Find New Music</button>
-            </form>
-      <datalist id ="artists"></datalist>
+    <div class="h-screen flex items-center justify-center bg-gradient-to-r from-green-900 via-slate-950 to-green-900">
+    <form class="bg-gradient-to-r from-cyan-500 to-blue-500 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-lg font-bold mb-2" for="artist">
+          Artist
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Input Artist Here">
       </div>
-  </main>
+      <div class="flex items-center justify-between">
+        <button class="text-amber-50 rounded-lg font-sans hover:font-bold btn bg-indigo-900 hover:bg-lime-500 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          Find New Music
+        </button>
+            <datalist id ="artists"></datalist>
+      </div>
+    </form>
+
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="./assets/js/mainpage.js"></script>
 </body>
