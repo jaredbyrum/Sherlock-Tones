@@ -25,7 +25,7 @@ var offset = '0';
 
 async function searchArtist(query) {
   const access_token = await getAccessToken()
-  const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=genre%3Arock`, {
+  const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=genre%3Aaggroclassicaltech`, {
     headers: {
       'Authorization': 'Bearer ' + access_token 
     }
@@ -33,16 +33,26 @@ async function searchArtist(query) {
   const data = await response.json();
   console.log(data.artists)
   console.log(data.artists.next)
-  const next = await fetch(data.artists.next, {
-    headers: {
-      'Authorization': 'Bearer ' + access_token 
-    }
-  });
-  const data2 = await next.json();
-  console.log(data2)
+//   const next = await fetch(data.artists.next, {
+//     headers: {
+//       'Authorization': 'Bearer ' + access_token 
+//     }
+//   });
+//   const data2 = await next.json();
+//   console.log(data2)
   return data.artists.items;
 }
 searchArtist(); 
-//https://binaryjazz.us/wp-json/genrenator/v1/genre/ (RANDOM Genre Generator)
 
-//search?type=artist&q=genre%3Agenre
+// https://binaryjazz.us/wp-json/genrenator/v1/genre/ (RANDOM Genre Generator)
+//makes some weird genres for inspo maybe?
+
+fetch('https://binaryjazz.us/wp-json/genrenator/v1/genre/')
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(data){
+      console.log(data)
+      console.log("Genre is " + data[Math.floor((Math.random()*5))].name);
+    })
+// search?type=artist&q=genre%3Agenre
