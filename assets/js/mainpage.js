@@ -20,19 +20,29 @@ async function getAccessToken() {
 }
 getAccessToken()
 
-var query = ''//value entered 
+var genre = ''//value entered 
+var offset = '0';
 
-console.log('hello', access_token)
 async function searchArtist(query) {
   const access_token = await getAccessToken()
-  const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=Green+Day`, {
+  const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=genre%3Arock`, {
     headers: {
       'Authorization': 'Bearer ' + access_token 
     }
   });
   const data = await response.json();
-  console.log(data.artist.items)
-  return data.artist.items;
+  console.log(data.artists)
+  console.log(data.artists.next)
+  const next = await fetch(data.artists.next, {
+    headers: {
+      'Authorization': 'Bearer ' + access_token 
+    }
+  });
+  const data2 = await next.json();
+  console.log(data2)
+  return data.artists.items;
 }
 searchArtist(); 
 //https://binaryjazz.us/wp-json/genrenator/v1/genre/ (RANDOM Genre Generator)
+
+//search?type=artist&q=genre%3Agenre
