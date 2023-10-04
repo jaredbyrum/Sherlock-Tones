@@ -1,6 +1,8 @@
 //our app id and secret
 const client_id = '7087dddc2d0d4a6b98f48401d9c33bae';
 const client_secret = '5518bba19e0d4c79af09c0e53a2b8a43';
+const resultsPage = './resultPage.html'
+const mainPage = './index.html'
 
 //function to generate access_token store in this variable vvv
 //use access_token in following API requests to authorize the fetch
@@ -20,39 +22,42 @@ async function getAccessToken() {
 }
 getAccessToken()
 
-var genre = ''//value entered 
 var offset = '0';
+var genre = $('#search-box').val();
 
-async function searchArtist(query) {
-  const access_token = await getAccessToken()
-  const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=genre%3Aaggroclassicaltech`, {
-    headers: {
-      'Authorization': 'Bearer ' + access_token 
-    }
-  });
-  const data = await response.json();
-  console.log(data.artists)
-  console.log(data.artists.next)
-//   const next = await fetch(data.artists.next, {
+// async function searchGenre(genre) {
+//   const access_token = await getAccessToken()
+//   const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=genre:"rock"`, {
 //     headers: {
 //       'Authorization': 'Bearer ' + access_token 
 //     }
 //   });
-//   const data2 = await next.json();
-//   console.log(data2)
-  return data.artists.items;
-}
-searchArtist(); 
+//   const data = await response.json();
+//   console.log(data.artists)
+//   return data.artists.items;
+// }
+// searchGenre() 
 
+
+// redirect buttons
+$('#search-btn').on('click', function(event){
+  event.preventDefault();
+  document.location.assign(resultsPage);
+  localStorage.setItem(genre, $('#search-box').val())
+})
+
+$('#genrenator').on('click', generateGenre())
 // https://binaryjazz.us/wp-json/genrenator/v1/genre/ (RANDOM Genre Generator)
 //makes some weird genres for inspo maybe?
 
-fetch('https://binaryjazz.us/wp-json/genrenator/v1/genre/')
+function generateGenre() {
+  fetch('https://binaryjazz.us/wp-json/genrenator/v1/genre/')
     .then(function(response){
       return response.json();
     })
     .then(function(data){
       console.log(data)
-      console.log("Genre is " + data[Math.floor((Math.random()*5))].name);
     })
-// search?type=artist&q=genre%3Agenre
+}
+
+
