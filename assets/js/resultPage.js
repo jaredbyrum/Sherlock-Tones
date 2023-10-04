@@ -3,6 +3,7 @@ const client_id = '7087dddc2d0d4a6b98f48401d9c33bae';
 const client_secret = '5518bba19e0d4c79af09c0e53a2b8a43';
 const mainPage = './index.html'
 
+//generate acces token for API 
 let access_token;
 async function getAccessToken() {
   const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -18,20 +19,23 @@ async function getAccessToken() {
   return access_token
 }
 
+//search offset
 var offset = '0';
-var genre = $('#search-box').val();
+var search = localStorage.getItem('genre')
+let fetchString = `https://api.spotify.com/v1/search?type=artist&q=genre:"${search}"&offset=${offset}`
 
-async function searchGenre(genre) {
+async function searchGenre() {
     const access_token = await getAccessToken()
-    const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=genre:"rock"`, {
+    const response = await fetch(fetchString,{
       headers: {
         'Authorization': 'Bearer ' + access_token 
       }
     });
     const data = await response.json();
-    console.log(data.artists)
+    console.log(data.artists.items)
     return data.artists.items;
 }
+searchGenre()
 
 $('#goBackBtn').on('click', function(event){
     event.preventDefault();
