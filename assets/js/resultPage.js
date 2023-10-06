@@ -39,26 +39,38 @@
       return items
   }   
 
-  let artistList = await searchGenre();
-  
-  let artistInfo = {
+  async function displayInfo(){
+    let artistList = await searchGenre();
+
+    let artistInfo = {
         name: artistList[4].name,
         genre: artistList[4].genres,
         followers: artistList[4].followers.total,
         link: artistList[4].external_urls.spotify,
-        photo: artistList[4].images[0]
+        photo: artistList[4].images[0].url
+    }
+    let genreStr = "";
+    for (let index = 0; index < artistInfo.genre.length; index++){
+         genreStr += artistInfo.genre[index] + ', '
+      }
+    for (let i = 1; i <= 5; i++){
+      $('#artist' + i).text(artistInfo.name)
+      // for loop this VVV
+      $('#genre' + i).text('Genres: ' + genreStr)
+      $('#followers' + i).text('Followers: ' + artistInfo.followers)
+      $('#link' + i).text(artistInfo.link)
+      $('#picture' + i).attr('style', 'background-image: url(' + artistInfo.photo + ')') 
+    }
   }
-  console.log(artistInfo)    
-
-
 
   window.onload = searchGenre();
-
+  window.onload = displayInfo();
 
   $('#nav-btn').on('click', function(event){
     event.preventDefault()
     localStorage.setItem('genre', $('#nav-search').val())
     searchGenre();
+    displayInfo();
   })
  
   $('#goBackBtn').on('click', function(event){
