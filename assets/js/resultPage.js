@@ -63,13 +63,15 @@
   async function displayGenreInfo(){
     let artistList = await searchGenre();
     for (let i = 0; i <= 5; i++){
+      let randomArtist = artistList[Math.floor(Math.random() * artistList.length)]
+      console.log(randomArtist)
       let artistInfo = {
-              name: artistList[i].name,
-              genre: artistList[i].genres,
-              followers: artistList[i].followers.total,
-              link: artistList[i].external_urls.spotify,
-              photo: artistList[i].images[0].url,
-              id: artistList[i].id
+              name: randomArtist.name,
+              genre: randomArtist.genres,
+              followers: randomArtist.followers.total,
+              link: randomArtist.external_urls.spotify,
+              photo: randomArtist.images[0].url,
+              id: randomArtist.id
           }
           let genreStr = "";
           for (let index = 0; index < artistInfo.genre.length; index++){
