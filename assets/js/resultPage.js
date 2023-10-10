@@ -34,45 +34,95 @@
         }
       });
       const data = await response.json();
-      items = data.artists.items
+      let items = data.artists.items
+      //show modal on error
+      if (items.length == 0){
+        
+      } else {
       console.log(items)
       return items
+      }
   }   
 
-  async function displayInfo(){
-    let artistList = await searchGenre();
+ async function searchArtist() {
+  let search = localStorage.getItem('artist')
+  let fetchString = `https://api.spotify.com/v1/artists/${search}/related-artists`
+  const response = await fetch(fetchString,{
+    headers: {
+      'Authorization': 'Bearer ' + token 
+    }
+  });
+    const data = await response.json();
+    const artists = data.artists
+    console.log(artists)
+    return artists
+ }
 
-    let artistInfo = {
-        name: artistList[4].name,
-        genre: artistList[4].genres,
-        followers: artistList[4].followers.total,
-        link: artistList[4].external_urls.spotify,
-        photo: artistList[4].images[0].url
-    }
-    let genreStr = "";
-    for (let index = 0; index < artistInfo.genre.length; index++){
-         genreStr += artistInfo.genre[index] + ', '
-      }
-    for (let i = 1; i <= 5; i++){
-      $('#artist' + i).text(artistInfo.name)
-      // for loop this VVV
-      $('#genre' + i).text('Genres: ' + genreStr)
-      $('#followers' + i).text('Followers: ' + artistInfo.followers)
-      $('#link' + i).text(artistInfo.link)
-      $('#picture' + i).attr('style', 'background-image: url(' + artistInfo.photo + ')') 
-    }
+ // search based on genre
+  async function displayGenreInfo(){
+    let artistList = await searchGenre();
+    for (let i = 0; i <= 5; i++){
+      let artistInfo = {
+              name: artistList[i].name,
+              genre: artistList[i].genres,
+              followers: artistList[i].followers.total,
+              link: artistList[i].external_urls.spotify,
+              photo: artistList[i].images[0].url,
+              id: artistList[i].id
+          }
+          let genreStr = "";
+          for (let index = 0; index < artistInfo.genre.length; index++){
+              genreStr += artistInfo.genre[index] + ', '
+            }
+            $('#artist' + i).text(artistInfo.name)
+            $('#genre' + i).text('Genres: ' + genreStr)
+            $('#followers' + i).text('Followers: ' + artistInfo.followers)
+            $('#link' + i).attr('href', artistInfo.link)
+            $('#picture' + i).attr('style', 'background-image: url(' + artistInfo.photo + ')')
+            $('#id' + i).attr('data', artistInfo.id)
+    } 
+  }
+
+  //search for related artists
+  async function displayArtistInfo(){
+    let artistList = await searchArtist();
+    for (let i = 0; i <= 5; i++){
+      let artistInfo = {
+              name: artistList[i].name,
+              genre: artistList[i].genres,
+              followers: artistList[i].followers.total,
+              link: artistList[i].external_urls.spotify,
+              photo: artistList[i].images[0].url,
+              id: artistList[i].id
+          }
+          let genreStr = "";
+          for (let index = 0; index < artistInfo.genre.length; index++){
+              genreStr += artistInfo.genre[index] + ', '
+            }
+            $('#artist' + i).text(artistInfo.name)
+            $('#genre' + i).text('Genres: ' + genreStr)
+            $('#followers' + i).text('Followers: ' + artistInfo.followers)
+            $('#link' + i).attr('href', artistInfo.link)
+            $('#picture' + i).attr('style', 'background-image: url(' + artistInfo.photo + ')')
+            $('#id' + i).attr('data', artistInfo.id)
+    } 
   }
 
   window.onload = searchGenre();
-  window.onload = displayInfo();
+  window.onload = displayGenreInfo();
 
   $('#nav-btn').on('click', function(event){
     event.preventDefault()
     localStorage.setItem('genre', $('#nav-search').val())
-    searchGenre();
-    displayInfo();
+    displayGenreInfo();
   })
  
+  $('.artist-button').on('click', function(event){
+    event.preventDefault();
+    localStorage.setItem('artist', $(event.target).attr('data'))
+    displayArtistInfo();
+  })
+
   $('#goBackBtn').on('click', function(event){
       event.preventDefault();
       document.location.assign(mainPage);
