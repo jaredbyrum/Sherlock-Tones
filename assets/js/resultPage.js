@@ -40,8 +40,8 @@
       if (items.length == 0){
         $('#defaultModal').removeClass('hidden')
       } else {
-      console.log(items)
-      return items
+        console.log(items)
+        return items
       }
   }   
 
@@ -77,6 +77,7 @@
           for (let index = 0; index < artistInfo.genre.length; index++){
               genreStr += artistInfo.genre[index] + ', '
             }
+            $('#card' + i).removeClass('invisible')
             $('#artist' + i).text(artistInfo.name)
             $('#genre' + i).text('Genres: ' + genreStr)
             $('#followers' + i).text('Followers: ' + artistInfo.followers)
