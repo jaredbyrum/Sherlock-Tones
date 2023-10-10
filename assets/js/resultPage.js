@@ -3,6 +3,7 @@
   const client_id = '7087dddc2d0d4a6b98f48401d9c33bae';
   const client_secret = '5518bba19e0d4c79af09c0e53a2b8a43';
   const mainPage = './index.html'
+  
 
   //generate acces token for API
   let access_token;
@@ -37,7 +38,7 @@
       let items = data.artists.items
       //show modal on error
       if (items.length == 0){
-        
+        $('#defaultModal').removeClass('hidden')
       } else {
       console.log(items)
       return items
@@ -127,4 +128,14 @@
       event.preventDefault();
       document.location.assign(mainPage);
   })
+
+  function closeModal(){
+    $('#defaultModal').addClass('hidden')
+  }
+
+  $('#close-modal').on('click', function(event){
+    event.preventDefault();
+    closeModal();
+  })
+  
 })();
